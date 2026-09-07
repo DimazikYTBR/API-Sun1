@@ -21,5 +21,4 @@ class DublikataAIGenerator:
                 res.raise_for_status()
                 return res.json().get("text", "")
 
-        # Fallback response when no remote endpoint is set
         return "Dublikata AI: Synthesis complete. Generated response based on Sun1 weights."
