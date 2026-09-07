@@ -4,13 +4,13 @@ from typing import Union, Dict, List, Any
 import httpx
 
 from .translator import WeightsTranslator
-from .generator import DublikatAIGenerator
+from .generator import DublikataAIGenerator
 
 class APISun1:
     """Core client for API Sun1 integrations."""
 
-    def __init__(self, dublikat_url: str = None, api_key: str = None):
-        self.generator = DublikatAIGenerator(endpoint_url=dublikat_url, api_key=api_key)
+    def __init__(self, dublikata_url: str = None, api_key: str = None):
+        self.generator = DublikataAIGenerator(endpoint_url=dublikata_url, api_key=api_key)
 
     async def to_text_async(
         self, 
