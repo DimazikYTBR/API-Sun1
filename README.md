@@ -16,4 +16,4 @@ A lightweight Python SDK and REST API bridge designed to convert numeric weights
 Install directly from GitHub via `pip`:
 
 ```bash
-pip install git+[https://github.com/](https://github.com/)DiMaZikYTBR/api-sun1.git
+pip install git+[https://github.com/](https://github.com/)DiMaZikYTBR/API-Sun1.git
