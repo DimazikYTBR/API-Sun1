@@ -6,8 +6,8 @@ import httpx
 from .translator import WeightsTranslator
 from .generator import DublikatAIGenerator
 
-class Sun1:
-    """Main client class for Python integrations."""
+class APISun1:
+    """Core client for API Sun1 integrations."""
 
     def __init__(self, dublikat_url: str = None, api_key: str = None):
         self.generator = DublikatAIGenerator(endpoint_url=dublikat_url, api_key=api_key)
@@ -31,11 +31,11 @@ class Sun1:
         return asyncio.run(self.to_text_async(weights, context, temperature))
 
     def download_weights(self, url: str, destination_path: str):
-        """Downloads a weights file with clean start and finish console markers."""
+        """Downloads weights file with clean start and finish status markers."""
         target_path = Path(destination_path)
         target_path.parent.mkdir(parents=True, exist_ok=True)
 
-        print(f"[Sun1] Download started: {target_path.name}")
+        print(f"[API Sun1] Download started: {target_path.name}")
 
         with httpx.Client(follow_redirects=True) as client:
             with client.stream("GET", url) as response:
@@ -45,5 +45,4 @@ class Sun1:
                         if chunk:
                             file.write(chunk)
 
-        print(f"[Sun1] Download completed: {target_path.name}")
-      
+        print(f"[API Sun1] Download completed: {target_path.name}")
