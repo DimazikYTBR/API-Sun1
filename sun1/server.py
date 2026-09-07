@@ -3,10 +3,10 @@ from pydantic import BaseModel, Field
 from typing import Dict, List, Union, Any
 
 from .translator import WeightsTranslator
-from .generator import DublikatAIGenerator
+from .generator import DublikataAIGenerator
 
 app = FastAPI(title="API Sun1", version="0.1.0")
-generator = DublikatAIGenerator()
+generator = DublikataAIGenerator()
 
 class GenerationRequest(BaseModel):
     weights: Union[Dict[str, float], List[float]] = Field(..., description="Weight map or vector")
