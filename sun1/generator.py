@@ -1,12 +1,12 @@
 import os
 import httpx
 
-class DublikatAIGenerator:
-    """Interface for invoking Dublikat AI inference services."""
+class DublikataAIGenerator:
+    """Interface for invoking Dublikata AI inference services."""
 
     def __init__(self, endpoint_url: str = None, api_key: str = None):
-        self.endpoint_url = endpoint_url or os.getenv("DUBLIKAT_AI_URL")
-        self.api_key = api_key or os.getenv("DUBLIKAT_AI_KEY")
+        self.endpoint_url = endpoint_url or os.getenv("DUBLIKATA_AI_URL")
+        self.api_key = api_key or os.getenv("DUBLIKATA_AI_KEY")
 
     async def generate_response(self, prompt: str, temperature: float = 0.3) -> str:
         if self.endpoint_url:
@@ -21,5 +21,5 @@ class DublikatAIGenerator:
                 res.raise_for_status()
                 return res.json().get("text", "")
 
-        return "Dublikat AI: Synthesis complete. Generated response based on Sun1 weights."
-
+        # Fallback response when no remote endpoint is set
+        return "Dublikata AI: Synthesis complete. Generated response based on Sun1 weights."
