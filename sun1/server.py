@@ -5,7 +5,7 @@ from typing import Dict, List, Union, Any
 from .translator import WeightsTranslator
 from .generator import DublikatAIGenerator
 
-app = FastAPI(title="Sun1 API", version="0.1.0")
+app = FastAPI(title="API Sun1", version="0.1.0")
 generator = DublikatAIGenerator()
 
 class GenerationRequest(BaseModel):
@@ -25,4 +25,3 @@ async def generate_text(payload: GenerationRequest):
         return GenerationResponse(status="success", text=result_text)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
-      
