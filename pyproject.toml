@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sun1"
+name = "api-sun1"
 version = "0.1.0"
-description = "Sun1 API bridge for Dublikat AI weights-to-text generation"
+description = "API Sun1 — weights-to-text bridge for Dublikat AI"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
