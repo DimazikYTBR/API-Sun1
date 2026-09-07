@@ -27,7 +27,7 @@ class WeightsTranslator:
             f"[SYSTEM: Sun1 Engine]\n"
             f"[TASK: {task}]\n"
             f"{weights_repr}\n\n"
-            f"[INSTRUCTION FOR DUBLIKAT AI]:\n"
+            f"[INSTRUCTION FOR DUBLIKATA AI]:\n"
             f"Analyze the provided weights and parameters to synthesize a clear, "
             f"objective, and detailed text summary."
         )
