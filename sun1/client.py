@@ -1,37 +1,74 @@
 import asyncio
 from pathlib import Path
-from typing import Union, Dict, List, Any
+from typing import Union, Dict, List, Any, Optional, Iterator
 import httpx
 
 from .translator import WeightsTranslator
 from .generator import DublikataAIGenerator
 
-class APISun1:
-    """Core client for API Sun1 integrations."""
 
-    def __init__(self, dublikata_url: str = None, api_key: str = None):
-        self.generator = DublikataAIGenerator(endpoint_url=dublikata_url, api_key=api_key)
+class APISun1:
+    """Core client and inference engine for API Sun1."""
+
+    def __init__(
+        self,
+        model_path: Optional[str] = None,
+        dublikata_url: Optional[str] = None,
+        api_key: Optional[str] = None,
+        n_ctx: int = 2048,
+        n_gpu_layers: int = 0
+    ):
+        self.generator = DublikataAIGenerator(
+            model_path=model_path,
+            endpoint_url=dublikata_url,
+            api_key=api_key,
+            n_ctx=n_ctx,
+            n_gpu_layers=n_gpu_layers
+        )
 
     async def to_text_async(
         self, 
         weights: Union[Dict[str, float], List[float]], 
         context: Dict[str, Any] = None,
-        temperature: float = 0.3
+        temperature: float = 0.3,
+        max_tokens: int = 512
     ) -> str:
         prompt = WeightsTranslator.to_prompt(weights, context)
-        return await self.generator.generate_response(prompt, temperature=temperature)
+        return await self.generator.generate_response(
+            prompt=prompt, 
+            temperature=temperature,
+            max_tokens=max_tokens
+        )
 
     def to_text(
         self, 
         weights: Union[Dict[str, float], List[float]], 
         context: Dict[str, Any] = None,
-        temperature: float = 0.3
+        temperature: float = 0.3,
+        max_tokens: int = 512
     ) -> str:
-        """Synchronous wrapper for weights-to-text generation."""
-        return asyncio.run(self.to_text_async(weights, context, temperature))
+        """Synchronous text generation based on weights."""
+        return asyncio.run(
+            self.to_text_async(weights, context, temperature, max_tokens)
+        )
+
+    def to_text_stream(
+        self, 
+        weights: Union[Dict[str, float], List[float]], 
+        context: Dict[str, Any] = None,
+        temperature: float = 0.3,
+        max_tokens: int = 512
+    ) -> Iterator[str]:
+        """Streaming text generation (token by token)."""
+        prompt = WeightsTranslator.to_prompt(weights, context)
+        yield from self.generator.stream_response(
+            prompt=prompt, 
+            temperature=temperature,
+            max_tokens=max_tokens
+        )
 
     def download_weights(self, url: str, destination_path: str):
-        """Downloads weights file with clean start and finish status markers."""
+        """Downloading the weights file (.gguf / .bin) with silent markers."""
         target_path = Path(destination_path)
         target_path.parent.mkdir(parents=True, exist_ok=True)
 

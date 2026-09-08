@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "api-sun1"
-version = "0.1.0"
-description = "API Sun1 — weights-to-text bridge for Dublikata AI"
+version = "0.1.1"
+description = "API Sun1 — Standalone inference engine and Dublikata AI bridge"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
     "pydantic>=2.0.0",
     "fastapi>=0.100.0",
     "uvicorn>=0.22.0",
-    "httpx>=0.24.0"
+    "httpx>=0.24.0",
+    "llama-cpp-python>=0.2.70"
 ]
